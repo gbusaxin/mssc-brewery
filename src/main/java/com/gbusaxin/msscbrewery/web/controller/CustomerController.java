@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
@@ -39,13 +38,13 @@ public class CustomerController {
     }
 
     @PutMapping("/{customerId}")
-    public ResponseEntity<Void> updateCustomer(@PathVariable(name = "customerId") UUID customerId, @Valid @NotNull @RequestBody CustomerDto customerDto) {
+    public ResponseEntity<Void> updateCustomer(@PathVariable(name = "customerId") UUID customerId, @Validated @NotNull @RequestBody CustomerDto customerDto) {
         customerService.update(customerId, customerDto);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping
-    public ResponseEntity<CustomerDto> saveCustomer(@Valid @NotNull @RequestBody CustomerDto customerDto) {
+    public ResponseEntity<CustomerDto> saveCustomer(@Validated @NotNull @RequestBody CustomerDto customerDto) {
         CustomerDto savedCustomer = customerService.save(customerDto);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", "/" + savedCustomer.getId());
