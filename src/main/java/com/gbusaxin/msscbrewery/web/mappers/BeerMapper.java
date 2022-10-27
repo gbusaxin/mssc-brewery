@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
  * @created : by GBu on 27. 10. 2022, štvrtok
  * @mailto : grigorii.busakhin@software-foundation.sk
  **/
-@Mapper
+@Mapper(uses = {DateMapper.class})
 public interface BeerMapper {
 
     BeerDto beerToBeerDto(Beer beer);
