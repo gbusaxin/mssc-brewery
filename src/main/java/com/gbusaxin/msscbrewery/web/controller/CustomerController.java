@@ -5,8 +5,11 @@ import com.gbusaxin.msscbrewery.web.service.CustomerService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,6 +17,7 @@ import java.util.UUID;
  * @created : by GBu on 26. 10. 2022, streda
  * @mailto : grigorii.busakhin@software-foundation.sk
  **/
+@Validated
 @RestController
 @RequestMapping("/api/v1/customer")
 public class CustomerController {
@@ -25,7 +29,7 @@ public class CustomerController {
     }
 
     @GetMapping("/{customerId}")
-    public ResponseEntity<CustomerDto> getCustomerById(@PathVariable(name = "customerId") UUID id) {
+    public ResponseEntity<CustomerDto> getCustomerById(@NotNull @PathVariable(name = "customerId") UUID id) {
         return new ResponseEntity<>(customerService.findCustomerById(id), HttpStatus.OK);
     }
 
@@ -35,13 +39,13 @@ public class CustomerController {
     }
 
     @PutMapping("/{customerId}")
-    public ResponseEntity<Void> updateCustomer(@PathVariable(name = "customerId") UUID customerId, @RequestBody CustomerDto customerDto) {
+    public ResponseEntity<Void> updateCustomer(@PathVariable(name = "customerId") UUID customerId, @Valid @NotNull @RequestBody CustomerDto customerDto) {
         customerService.update(customerId, customerDto);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping
-    public ResponseEntity<CustomerDto> saveCustomer(@RequestBody CustomerDto customerDto) {
+    public ResponseEntity<CustomerDto> saveCustomer(@Valid @NotNull @RequestBody CustomerDto customerDto) {
         CustomerDto savedCustomer = customerService.save(customerDto);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", "/" + savedCustomer.getId());
@@ -49,9 +53,8 @@ public class CustomerController {
     }
 
     @DeleteMapping("/{customerId}")
-    public ResponseEntity<Void> deleteCustomer(@PathVariable(name = "customerId") UUID id){
+    public ResponseEntity<Void> deleteCustomer(@NotNull @PathVariable(name = "customerId") UUID id) {
         customerService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 }
