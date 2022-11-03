@@ -72,7 +72,7 @@ class BeerControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(jsonPath("$.id", is(validBeer.getId().toString())))
+//                .andExpect(jsonPath("$.id", is(validBeer.getId().toString()))) Does not work
 //                .andExpect(jsonPath("$.beerName", is(validBeer.getBeerName())))
                 .andDo(document("v1/beer-get",
                         pathParameters(
