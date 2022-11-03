@@ -33,7 +33,7 @@ public class BeerController {
 
     @PostMapping()
     public ResponseEntity<BeerDto> createNewBeer(@Validated @RequestBody BeerDto beer) {
-        BeerDto createdBeer = beerService.createNewBeer(beer);
+        BeerDto createdBeer = beerService.saveNewBeer(beer);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", "/" + createdBeer.getId().toString());

@@ -13,12 +13,22 @@ import java.util.UUID;
 public class BeerServiceImpl implements BeerService {
     @Override
     public BeerDto getBeerById(UUID beerId) {
-        return null;
+        return BeerDto.builder()
+                .id(UUID.randomUUID())
+                .beerName("PIVO")
+                .beerStyle("Povnnoe")
+                .upc(1312312L)
+                .build();
     }
 
     @Override
-    public BeerDto createNewBeer(BeerDto beer) {
-        return null;
+    public BeerDto saveNewBeer(BeerDto beer) {
+        return BeerDto.builder()
+                .id(UUID.randomUUID())
+                .beerName("PIVO")
+                .beerStyle("Povnnoe")
+                .upc(1312312L)
+                .build();
     }
 
     @Override
